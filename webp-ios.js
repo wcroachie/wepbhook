@@ -1,6 +1,7 @@
-!function(){
+var webpWarmDef = true;
+webpF = function(f){
 
-  window["~"+document.currentScript.src] = "!"+arguments.callee.toString()+"()";
+  window["~"+document.currentScript.src] = "!"+f.toString()+"()";
 
   /* adapted from this: https://github.com/GoogleChrome/samples/tree/gh-pages/webassembly */
   /* https://developer.mozilla.org/en-US/docs/WebAssembly/existing_C_to_wasm */
@@ -60,7 +61,7 @@
 
     if(!document.createElement("canvas").toDataURL("image/webp").startsWith("data:image/webp")){
 
-      var workerContext = arguments.callee.toString().match(/\/\* WORKER\-INCLUDE\<\!\-\-([\s\S]*?)\-\-\>WORKER\-INCLUDE \*\//g)[0];
+      var workerContext = f.toString().match(/\/\* WORKER\-INCLUDE\<\!\-\-([\s\S]*?)\-\-\>WORKER\-INCLUDE \*\//g)[0];
       var worker = new Worker(URL.createObjectURL(new Blob([`
         ${workerContext}
         var convert = function(){
@@ -134,4 +135,5 @@
     }
     
   };
-}()
+}
+webpF(webpF);
